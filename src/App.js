@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 
@@ -9,6 +8,7 @@ class App extends Component {
     regSeasonData: [],
     playoffsData: [],
     mergedData: [],
+    conference: 'All',
   }
   
   //Permanent team abbreviations and conference assignments
@@ -149,18 +149,42 @@ class App extends Component {
     
     this.getRegSeason();
   }
-
+  
+  onDimChange = (ev) => {
+    this.setState({
+      conference: ev.target.value,
+    })
+  }
+  
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+        <div className="Viz">
+            <div className="VizHeader">
+                <h1>2018-19 NBA Regular Season vs. Playoffs Winning %</h1>
+                <div className="DimensionChooser">
+                  <label>Conference:
+                    <select className="DimensionChooser-select" id="dim1" onClick={this.onDimChange}>
+                      <option>All</option>
+                      <option>Eastern</option>
+                      <option>Western</option>
+                    </select>
+                </label>
+                </div>
+            </div>
+            <div className="VizWrapper" id="chart">
+              {
+                this.state.mergedData.map(record => (
+                  (this.state.conference === "All" || this.state.conference === record.TEAM_CONF) && (
+                    <div className="VizItem" onClick={() => alert(record.TEAM_ABR + " won " + (record.REG_W_PCT - record.PLYOFF_W_PCT) + "% fewer of their games during the playoffs.")}>
+                      <div className="VizData VizRegular" style={{height: record.REG_W_PCT + "%"}}><label>{record.REG_W_PCT}</label></div>
+                      <div className="VizData VizPlayoff" style={{height: record.PLYOFF_W_PCT + "%"}}><label>{record.PLYOFF_W_PCT}</label></div>
+                      <div className="VizLabel">{record.TEAM_ABR}</div>
+                    </div>
+                  )
+                ))
+              }
+            </div>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
     );
   }
   
