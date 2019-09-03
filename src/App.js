@@ -117,8 +117,6 @@ class App extends Component {
   }
   
   mergeDataSets = () => {
-    console.log('regSeasonData ->',this.state.regSeasonData);
-    console.log('playoffData ->',this.state.playoffsData);
 
     //merge the import elements from the two data sets
     let comboData = []
@@ -139,14 +137,12 @@ class App extends Component {
     this.setState({
       mergedData: comboData
     })
-    console.log('comboData ->', comboData)
     
-  //  render('All');
+    //console.log('comboData ->', comboData)
+    
   }
   
   componentDidMount = () => {
-    console.log('componentDidMount');
-    
     this.getRegSeason();
   }
   
