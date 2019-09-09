@@ -173,9 +173,9 @@ class App extends Component {
             </div>
             <div className="VizWrapper" id="chart">
               {
-                this.state.mergedData.map(record => (
+                this.state.mergedData.map((record,index) => (
                   (this.state.conference === "All" || this.state.conference === record.TEAM_CONF) && (
-                    <div className="VizItem" onClick={() => this.alertDiff(record)}>
+                    <div className="VizItem" key={index} onClick={() => this.alertDiff(record)}>
                       <div className="VizData VizRegular" style={{height: record.REG_W_PCT + "%"}}><label>{record.REG_W_PCT}</label></div>
                       <div className="VizData VizPlayoff" style={{height: record.PLYOFF_W_PCT + "%"}}><label>{record.PLYOFF_W_PCT}</label></div>
                       <div className="VizLabel">{record.TEAM_ABR}</div>
