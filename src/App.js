@@ -64,7 +64,6 @@ class App extends Component {
                       ];
   
   parseData = (data) => {
-    console.log('Data passed to parseData()', data);
     let headers = data.headers;
     let rowSet = data.rowSet;
     let cleanData = [];
@@ -137,8 +136,6 @@ class App extends Component {
     this.setState({
       mergedData: comboData
     })
-    
-    //console.log('comboData ->', comboData)
     
   }
   
